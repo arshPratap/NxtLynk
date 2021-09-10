@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>SELECT DB</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <h1>Please select a database type</h1>
+        <form action="/db" method="POST">
+            <input type="radio" id="block" name="block" value="BLOCKCHAIN"></input>
+            <label for="block">BLOCKCHAIN DB</label>
+            <input type="radio" id="mongo" name="mongo" value="MONGO"></input>
+            <label for="block">MONGO DB</label>
+            <button type="submit">NEXT</button>
+        </form>
+    </body>
+</html>
