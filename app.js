@@ -1,5 +1,6 @@
 //import libraries
 const express = require('express');
+const request = require('request');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const {verifyToken} = require('./public/jwtauth');
@@ -19,6 +20,23 @@ const dbclient = new DBClient();
 app.get("/",function(req,res){
     res.render("home");
 })
+
+app.get("/apiw/:lat/:long",function(req,res){
+
+    output = 0
+    KEY = '154f485ccc97f7cbab902a81814ba8f1'
+    LONG = req.params.long
+    LAT = req.params.lat
+    URL = "https://api.agromonitoring.com/agro/1.0/weather?lat=" + LAT + "&lon=" + LONG + "&appid=" + KEY
+    request(URL, function(err,response,body){
+        if(response.statusCode == 200){
+            console.log(body)
+            res.send(body)
+        }
+    })
+    
+})
+
 app.get("/db",function(req,res){
     res.render("dbsource");
 })
