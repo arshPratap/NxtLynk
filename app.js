@@ -21,21 +21,35 @@ app.get("/",function(req,res){
     res.render("home");
 })
 
-app.get("/apiw/:lat/:long",function(req,res){
+app.get("/weather/:lat/:long",function(req,res){
 
-    output = 0
     KEY = '154f485ccc97f7cbab902a81814ba8f1'
     LONG = req.params.long
     LAT = req.params.lat
     URL = "https://api.agromonitoring.com/agro/1.0/weather?lat=" + LAT + "&lon=" + LONG + "&appid=" + KEY
     request(URL, function(err,response,body){
         if(response.statusCode == 200){
-            console.log(body)
             res.send(body)
         }
     })
     
 })
+
+app.get("/soil/:pol",function(req,res){
+
+    KEY = "154f485ccc97f7cbab902a81814ba8f1"
+    POLY = "5aaa8052cbbbb5000b73ff66"
+    URL = "https://samples.openweathermap.org/agro/1.0/soil?polyid="+POLY+"&appid=" + KEY
+    
+    request(URL, function(err,response,body){
+        if(response.statusCode == 200){
+            res.send(body)
+        }
+    })
+    
+})
+
+
 
 app.get("/db",function(req,res){
     res.render("dbsource");
