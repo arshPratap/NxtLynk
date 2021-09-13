@@ -63,6 +63,17 @@ The business idea behind this project is to build an E-platform which will provi
 <img src="https://user-images.githubusercontent.com/43999912/133136773-61de04bd-42a1-460f-89d6-28b262e6528d.jpeg" alt="landing view" height="70%" width="70%">
 </p>
 
+### Messaging and File Sharing Service
+<p float="left">
+<img src="https://user-images.githubusercontent.com/43999912/133139341-c2308b56-c34a-4fca-a49a-35c13a332f3b.jpeg" alt="landing view" height="70%" width="70%">
+<img src="https://user-images.githubusercontent.com/43999912/133139350-99d4f02e-f699-46e0-ba4b-d8de5247e369.jpeg" alt="landing view" height="70%" width="70%">
+</p>
+
+### Blog and Social Media Service
+<p float="left">
+<img src="https://user-images.githubusercontent.com/43999912/133139757-489410be-af17-4c5d-be82-406bd9d55750.jpeg" alt="landing view" height="70%" width="70%">
+<img src="https://user-images.githubusercontent.com/43999912/133139762-ba66a7a3-008b-48b1-9c46-e187adf593bc.jpeg" alt="landing view" height="70%" width="70%">
+</p>
 
 ## Stack
 
