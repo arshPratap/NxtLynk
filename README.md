@@ -59,7 +59,6 @@ To be added
 
 ### API Accessibility 
 <p float="left">
-<img src="https://user-images.githubusercontent.com/43999912/133136764-5c14bf1f-13b7-4c1c-b926-0753b18f2b85.jpeg" alt="landing view" height="70%" width="70%">
 <img src="https://user-images.githubusercontent.com/43999912/133136769-170946e1-ebf3-4295-9083-6f3a0f7bcd33.jpeg" alt="landing view" height="70%" width="70%">
 <img src="https://user-images.githubusercontent.com/43999912/133136773-61de04bd-42a1-460f-89d6-28b262e6528d.jpeg" alt="landing view" height="70%" width="70%">
 </p>
@@ -76,6 +75,23 @@ To be added
 <img src="https://user-images.githubusercontent.com/43999912/133139762-ba66a7a3-008b-48b1-9c46-e187adf593bc.jpeg" alt="landing view" height="70%" width="70%">
 </p>
 
+### Platform for an Index based Insurance System
+<p float="left">
+<img src="https://user-images.githubusercontent.com/62841337/133146008-55295bc3-eb36-4e03-a536-a1d36eeb12bf.png" alt="landing view" height="70%" width="70%">
+<img src="https://user-images.githubusercontent.com/62841337/133146030-23a6decc-8688-453d-8770-c1982e9d1e54.png" alt="landing view" height="70%" width="70%">
+</p>
+
+### E-Commerece for Agricultural Products
+<p float="left">
+<img src="https://user-images.githubusercontent.com/62841337/133145616-14c30586-d26f-4b3f-8061-ecede424c380.png" alt="landing view" height="70%" width="70%">
+</p>
+<img src="https://user-images.githubusercontent.com/62841337/133145844-5e4476a5-576c-4595-a978-23faaaa08e57.png" alt="landing view" height="70%" width="70%">
+</p>
+<img src="https://user-images.githubusercontent.com/62841337/133145856-b04c9688-b290-4e9d-9011-97549d3e5c30.png" alt="landing view" height="70%" width="70%">
+</p>
+<img src="https://user-images.githubusercontent.com/62841337/133145865-bd8baa91-731d-4325-96fc-12ea27fe8829.png" alt="landing view" height="70%" width="70%">
+</p>
+
 ## Stack
 
 * HTML/CSS
@@ -87,6 +103,7 @@ To be added
 * Web3
 * Solidity
 * EJS
+* Ganache
 
 ## Weavy
 Special thanks to the Weavy Community for being interactive and helpful during the project building phase.
@@ -101,5 +118,8 @@ Special thanks to the Weavy Community for being interactive and helpful during t
 
 ## Future Patches
 
-
+* Provide a medium to integrate Zooma and NxtLynk via Weavy
+* Provide MR(Mixed Reality) option for NxtLynk's E-Commerce section
+* Provide access to more agricultural APIs
+* Connect with IoT devices
 
