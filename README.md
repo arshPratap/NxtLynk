@@ -90,9 +90,9 @@ To be added
 
 ## Weavy
 Special thanks to the Weavy Community for being interactive and helpful during the project building phase.
-Weavy : https://www.weavy.com/
-Weavy-SDK : https://docs.weavy.com/server
-Weavy-Client : https://docs.weavy.com/client
+* Weavy : https://www.weavy.com/
+* Weavy-SDK : https://docs.weavy.com/server
+* Weavy-Client : https://docs.weavy.com/client
 
 ### Weavy Apps Used
 * [Posts](https://docs.weavy.com/apps/posts)
