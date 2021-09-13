@@ -32,8 +32,9 @@ The business idea behind this project is to build an E-platform which will provi
 # NXTLYNK
 
 
-#### [Demo Link!]()
-To be added
+#### [Demo Link - 1!](https://youtu.be/QSYVxM8btrE)
+
+#### [Demo Link - 2!](https://youtu.be/RVKhCFHgyhs)
 
 ## NxtLynk Tour
 
