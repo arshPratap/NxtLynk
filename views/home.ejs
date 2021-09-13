@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
@@ -10,12 +6,94 @@
         <title>Home</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="/styles/home.css">
     </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-        <h1>Welcome to weavy</h1>
-        <a href="/db">NEXT</a>
+    <% if(time === 0){ %>
+        <body class="dawn">
+    <% }else if (time === 1){ %>
+        <body class="morning">
+    <% }else if (time === 2){ %>
+        <body class="sunset">
+    <% }else{ %>
+        <body class="night">
+    <% } %>
+        <header>
+            <a href="#" class="logo">Logo</a>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="/db">Work</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </header>
+        <section>
+            <% if(time === 0 || time === 3){ %>
+                <img src="/images/stars.png" id="stars">
+                <img src="/images/moon.png" id="moon">
+            <% } else if (time === 1) { %>
+                <img src="/images/sun.png" id="sun">
+            <% } else { %>
+                <img src="/images/sunsetmoon.png" id="sun">
+            <% } %>
+
+            <img src="/images/backmnts.png" id="backmountains">
+            
+            <h2 id="text">NxtLynk</h2>
+            
+            <a href="#sec" id="btn">Explore</a>
+            
+            <img src="/images/front.png" id="front">
+            
+            <% if(time === 1 || time === 2){ %>
+            <img src="/images/animals.png" id="animals">
+            <% } %>
+        </section>
+        <div class = "sec" id="sec">
+            <h2>Parallax Scrolling Effects</h2>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+               <br><br>
+               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+               <br><br>
+               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+            </p>
+        </div>
+        <script>
+            
+            let stars = document.getElementById('stars');
+            let moon = document.getElementById('moon');
+            let sun = document.getElementById('sun');
+            let animals = document.getElementById('animals');
+
+            let mountains_behind = document.getElementById('backmountains');
+            let text = document.getElementById('text');
+            let btn = document.getElementById('btn');
+            let mountains_front = document.getElementById('front');
+            let header = document.querySelector('header');
+
+            window.addEventListener('scroll',function(){
+                let value = window.scrollY;
+                if(document.getElementById('stars')){
+                    document.getElementById('stars').style.left = value*0.25 + 'px';
+                }
+                if(document.getElementById('moon')){
+                    document.getElementById('moon').style.top = value*1.05+'px';
+                }
+                if(document.getElementById('sun')){
+                    document.getElementById('sun').style.top = value*1.05+'px';
+                }
+                if(document.getElementById('animals')){
+                    document.getElementById('animals').style.left = value*0.25 + 'px';
+                }
+                mountains_behind.style.top = value*0.5+'px';
+                mountains_front.style.top = value*0 + 'px';
+                text.style.marginRight = value*4 + 'px';
+                text.style.marginTop = value*1.5 + 'px';
+                btn.style.marginTop = value*1.5 + 'px';
+                header.style.top = value*0.5 + 'px';
+            })
+        </script>
     </body>
 </html>

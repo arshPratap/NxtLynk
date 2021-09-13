@@ -1,14 +1,15 @@
 const Eth = require('web3-eth');
 const eth =  new Eth('http://127.0.0.1:7545');
 const {ADDRESS,ABI} = require('./metadata');
-const {cryptoHash,getToken} = require('./jwtauth');
+const {cryptoHash,getToken, verifyToken} = require('./jwtauth');
 
 const contractInstance = new eth.Contract(ABI,ADDRESS);
 
 const getTypeCode = function (body) {
-    if(body.hasOwnProperty('farmer')){
+    console.log(body.type);
+    if(body.type === "Farmer"){
         return 0;
-    }else if (body.hasOwnProperty('insurance')){
+    }else if (body.type ==='Insurance'){
         return 2;
     }else{
         return 1;
@@ -16,11 +17,11 @@ const getTypeCode = function (body) {
 }
 const getOGCode = function (code) {
     if(code===0){
-        return 'farmer';
+        return 'Farmer';
     }else if (code === 2){
-        return 'insurance';
+        return 'Insurance';
     }else{
-        return 'user';
+        return 'Customer';
     }
 }
 const loginBlockchain = function(req,res){
@@ -82,6 +83,7 @@ const addProduct = function(req,res) {
             then(
                 function (reciept) {
                     console.log(reciept);
+                    res.redirect("/pdts");
                 }  
             )
         }
@@ -108,6 +110,7 @@ const parseProducts = function(bproducts) {
 const getProducts = function(req,res) {
     if(req.cookies.jwt){
         if(req.cookies.blockhash){
+            const name = verifyToken(req.cookies.jwt).name;
             contractInstance.methods.returnProducts().
             call({from:'0x5c5DAedc0c4f926b1563379Bc1E30A71268516fe'}).
             then(
@@ -120,10 +123,11 @@ const getProducts = function(req,res) {
                             prodId: '6137dd1e91499284e978c6e7',
                             name: 'qwerty',
                             details: 'qwerty',
+                            price:'2000',
                             __v: 0
-                          }]});
+                          }],type:req.cookies.type,user:name});
                     }else{
-                        res.render("products",{pdtList:pdts});
+                        res.render("products",{pdtList:pdts,type:req.cookies.type,user:name});
                     }
                 }
             )
@@ -136,11 +140,12 @@ const getProducts = function(req,res) {
 const getProduct = function(req,res){
     if(req.cookies.jwt){
         if(req.cookies.blockhash){
+            const name = verifyToken(req.cookies.jwt).name; 
             contractInstance.methods.returnProduct(req.params.pdtId).
             call({from:'0x5c5DAedc0c4f926b1563379Bc1E30A71268516fe'}).
             then(
                 function(result){
-                    res.render("productdetail",{pdtHead:result['name'],pdtDetail:result['detail'],pdtPrice:result['price']});
+                    res.render("productdetail",{pdtHead:result['name'],pdtDetail:result['detail'],pdtPrice:result['price'],type:req.cookies.type,name:name});
                 }
             )
 
@@ -187,14 +192,14 @@ const getForm = function(req,res){
 const submitForm = function(req,res){
     if(req.cookies.jwt){
         if(req.cookies.blockhash){
-            const token = cryptoHash(req.body.name,req.body.insurance,Date.now().toString());
-            contractInstance.methods.returnInsurancebyName(req.body.insurance).
+            const token = cryptoHash(req.body.name,req.body.insurances,Date.now().toString());
+            contractInstance.methods.returnInsurancebyName(req.body.insurances).
             call({from:'0x5c5DAedc0c4f926b1563379Bc1E30A71268516fe'}).
             then(
                 function(result){
-                    console.log("I am here");
+                    //console.log("I am here");
                     console.log(result);
-                    contractInstance.methods.addInsScheme(token,req.cookies.blockhash,result['id'],req.body.name,req.body.insurance,result['phone'],0).
+                    contractInstance.methods.addInsScheme(token,req.cookies.blockhash,result['id'],req.body.name,req.body.insurances,result['phone'],0).
                     send({from:'0x5c5DAedc0c4f926b1563379Bc1E30A71268516fe',gas:3000000}).
                     then(
                         function(reciept){
@@ -227,12 +232,13 @@ const parseSchemes = function(result){
 const getInsurances = function (req,res) {
     if(req.cookies.jwt){
         if(req.cookies.blockhash){
+            const name = verifyToken(req.cookies.jwt).name;
             contractInstance.methods.getInsSchemes(req.cookies.blockhash).
             call({from:'0x5c5DAedc0c4f926b1563379Bc1E30A71268516fe'}).
             then(
                 function(result){
                     const ins = parseSchemes(result);
-                    res.render("insurancelist",{insList:ins,uType:req.cookies.type})
+                    res.render("insurancelist",{insList:ins,uType:req.cookies.type,user:name});
                 }
             )
         }
@@ -242,6 +248,7 @@ const getInsurances = function (req,res) {
 }
 const insuranceDetail = function (req,res) {
     if(req.cookies.jwt){
+        const name =verifyToken(req.cookies.jwt).name;
         if(req.cookies.blockhash){
             contractInstance.methods.getInsScheme(req.params.insId).
             call({from:'0x5c5DAedc0c4f926b1563379Bc1E30A71268516fe'}).
@@ -252,7 +259,7 @@ const insuranceDetail = function (req,res) {
                         farmName:result.farmName,
                         status:result.status
                     };
-                    res.render("insurancedetail",{ins:INS});
+                    res.render("insurancedetail",{ins:INS,user:name,uType:req.cookies.type});
                 }
             )
         }

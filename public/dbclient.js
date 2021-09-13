@@ -1,6 +1,7 @@
 const {initiateConn,registerUser,loginUser,logoutUser,User,Farmer,Insurance,getForm,submitForm,getInsuances,insuranceDetail} = require("./mongoclient");
 const {contractInstance,loginBlockchain,regBlockchain,getBlockProducts,getBlockProduct,addBlockProduct,getBlockForm,submitBlockForm,getBlockInsurances,insuranceBlockDetail} = require("./blockchainclient");
 const {addMongoProduct,Product,getMongoAllProducts,getMongoProduct} = require('./products');
+const { verifyToken } = require("./jwtauth");
 class DBClient{
     constructor(dbsource){
         this.dbsource = "MONGO";
@@ -82,6 +83,15 @@ class DBClient{
             insuranceDetail(req,res);
         }else{
             insuranceBlockDetail(req,res);
+        }
+    }
+
+    goToPayment(req,res){
+        if(req.cookies.jwt){
+            const name = verifyToken(req.cookies.jwt).name;
+            res.render("pay.ejs",{price:req.params.price,name:name});
+        }else{
+            res.redirect("/reg");
         }
     }
 

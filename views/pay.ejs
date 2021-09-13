@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact Form</title>
-    <link rel="stylesheet" href="/styles/addpdtstyle.css" />
+    <link rel="stylesheet" href="/styles/payform.css" />
     <script
       src="https://kit.fontawesome.com/64d58efce2.js"
       crossorigin="anonymous"
@@ -48,29 +48,29 @@
           <span class="circle one"></span>
           <span class="circle two"></span>
 
-          <form action="/addpdt" autocomplete="off" method="POST">
-            <h3 class="title">Add Product Details</h3>
+          <form action="/paytm" autocomplete="off" method="POST">
+            <h3 class="title">Add Payment Details</h3>
             <div class="input-container">
-              <input type="text" name="head" class="input" id="head"/>
-              <label for="">Title</label>
-              <span>Title</span>
-            </div>
-            <div class="input-container">
-              <input type="text" name="name" id="name" class="input" />
+              <input type="text" name="name" class="input" id="name" value="<%=name%>"/>
               <label for="">Name</label>
               <span>Name</span>
             </div>
             <div class="input-container">
-              <input type="text" name="price" id="price" class="input" />
-              <label for="">Price</label>
-              <span>Price</span>
+              <input type="text" name="amt" id="amt" class="input" value="<%=price%>"/>
+              <label for="">Payment</label>
+              <span>Payment</span>
+            </div>
+            <div class="input-container">
+              <input type="text" name="email" id="email" class="input" />
+              <label for="">Email</label>
+              <span>Email</span>
             </div>
             <div class="input-container textarea">
-              <textarea name="detail" id="detail" class="input"></textarea>
-              <label for="">Details</label>
-              <span>Details</span>
+              <input name="phone" id="phone" class="input"></input>
+              <label for="">Phone</label>
+              <span>Phone</span>
             </div>
-            <input type="submit" value="Submit" class="btn" />
+            <input type="submit" value="Pay" class="btn" />
           </form>
         </div>
       </div>

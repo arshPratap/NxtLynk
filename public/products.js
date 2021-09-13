@@ -23,6 +23,7 @@ const addProduct=function(req,res){
     if(req.cookies.jwt){
         let user = verifyToken(req.cookies.jwt);
         console.log(user);
+        console.log(req.body);
         const product = new Product({
             _id:new mongoose.Types.ObjectId().toHexString(),
             prodId:user.sub,
@@ -54,7 +55,17 @@ const getAllProducts = function(req,res){
             if(products.length===0){
                 console.log("Add new products");
             }else{
-                res.render('products',{pdtList:products})
+                if(req.cookies.jwt){
+                    if(req.cookies.type){
+                        console.log(req.cookies.type);
+                        let user = verifyToken(req.cookies.jwt);
+                        res.render('products',{pdtList:products,type:req.cookies.type,user:user.name});
+                    }else{
+                        res.redirect('/reg');
+                    }
+                } else{
+                    res.redirect("/reg");
+                }
             }
         }
     });
@@ -65,13 +76,27 @@ const getProduct = function(req,res){
         if(err){
             console.log(err);
             res.redirect("/pdts");
-        }else{
+        }
+        else if(product === null){
+            //console.log();
+            res.redirect("/pdts");
+        }
+        else{
             console.log(product);
-            res.render('productdetail',{pdtHead:product.name,pdtDetail:product.details,pdtPrice:product.price})
+            if(req.cookies.jwt){
+                if(req.cookies){
+                    console.log(req.cookies.type);
+                    let user = verifyToken(req.cookies.jwt);
+                    res.render('productdetail',{pdtHead:product.name,pdtDetail:product.details,pdtPrice:product.price,type:req.cookies.type,user:user.name});
+                }else{
+                    res.redirect('/reg');
+                }
+            } else{
+                res.redirect("/reg");
+            }
         }
     });
 }
-
 module.exports.Product = Product;
 module.exports.addMongoProduct = addProduct;
 module.exports.getMongoAllProducts = getAllProducts;
