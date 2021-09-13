@@ -26,18 +26,12 @@
         <%- include('dashboard',{type:uType,user:user}); %>
         <section class="home-section">
             <div class="jumbotron">
-                <h1>Insurance Details</h1>
+                <h1>Temperature in <%=city%></h1>
                 <hr class="my-4">
-                <h3><%=ins.insName%></h3>
-                <p><%=ins.farmName%></p>
-                <% if(ins.status === 0){ %>
-                    <h3>Pending</h3>
-                <% } else if(ins.status === 1){ %>
-                    <h3>Profit</h3>
-                <% }else{ %>
-                    <h3>Loss</h3>
-                <% } %>
-                <a href="/insurance" type="button" class="btn btn-primary">Back</a>
+                <h3><%=weather.temp%> C</h3>
+                <h3><%=weather.pressure%> hPa</h3>
+                <h3><%=weather.humidity%> % </h3>
+                <a href="/dash" type="button" class="btn btn-primary">Back</a>
             </div>
         </section>
     </body>

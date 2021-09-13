@@ -94,14 +94,16 @@ const  initiateConn = function(){
         .catch(err=>console.error("Error was : ",err));
 };
 const registerUser = function(req,res){
-        if(req.body.hasOwnProperty('farmer')){
+        if(req.body.type === 'Farmer'){
             Farmer.findOne({'email':req.body.email,'phone':req.body.phone},function(err,farmer){
                 if(err){
                     console.log(err);
+                    res.redirect("/reg");
                     return;
                 }
                 if(farmer!==null){
                     console.log("Farmer exists");
+                    res.redirect("/reg");
                     return;
                 }else{
                     console.log("New Farmer");
@@ -123,7 +125,7 @@ const registerUser = function(req,res){
                                 expires:new Date(Date.now()+300000),
                                 httpOnly:true
                             });
-                            res.cookie("type","farmer",{
+                            res.cookie("type","Farmer",{
                                 expires:new Date(Date.now()+300000),
                                 httpOnly:true
                             });
@@ -133,14 +135,16 @@ const registerUser = function(req,res){
                     })
                 }
             })
-        }else if(req.body.hasOwnProperty('user')){
+        }else if(req.body.type === 'Customer'){
             User.findOne({'email':req.body.email,'phone':req.body.phone},function(err,user){
                 if(err){
                     console.log(err);
+                    res.redirect("/reg");
                     return;
                 }
                 if(user!==null){
                     console.log("User exists");
+                    res.redirect("/reg");
                     return;
                 }else{
                     console.log("New User");
@@ -162,7 +166,7 @@ const registerUser = function(req,res){
                                 expires:new Date(Date.now()+300000),
                                 httpOnly:true
                             });
-                            res.cookie("type","user",{
+                            res.cookie("type","Customer",{
                                 expires:new Date(Date.now()+300000),
                                 httpOnly:true
                             });
@@ -172,14 +176,16 @@ const registerUser = function(req,res){
                     })
                 }
             })
-        }else if(req.body.hasOwnProperty('insurance')){
+        }else if(req.body.type==='Insurance'){
             Insurance.findOne({'email':req.body.email,'phone':req.body.phone},function(err,insurance){
                 if(err){
                     console.log(err);
+                    res.redirect("/reg");
                     return;
                 }
                 if(insurance!==null){
                     console.log("Insurance exists");
+                    res.redirect("/reg");
                     return;
                 }else{
                     console.log("New Insurance");
@@ -201,7 +207,7 @@ const registerUser = function(req,res){
                                 expires:new Date(Date.now()+300000),
                                 httpOnly:true
                             });
-                            res.cookie("type","insurance",{
+                            res.cookie("type","Insurance",{
                                 expires:new Date(Date.now()+300000),
                                 httpOnly:true
                             });
@@ -217,10 +223,11 @@ const registerUser = function(req,res){
 };
 
 const loginUser = function(req,res){
-    if(req.body.hasOwnProperty('user')){
+    if(req.body.type==='Customer'){
         User.findOne({'name':req.body.name,'password':req.body.pass},function(err,user){
             if(err){
                 console.log(err);
+                res.redirect("/reg");
                 return;
             }
             if(user !== null){
@@ -230,20 +237,22 @@ const loginUser = function(req,res){
                     expires:new Date(Date.now()+300000),
                     httpOnly:true
                 });
-                res.cookie("type","user",{
+                res.cookie("type","Customer",{
                     expires:new Date(Date.now()+300000),
                     httpOnly:true
                 });
                 res.redirect("/dash");
             }else{
                 console.log("The user does not exists");
+                res.redirect("/reg");
                 return;
             }
         })
-    }else if(req.body.hasOwnProperty('farmer')){
+    }else if(req.body.type === 'Farmer'){
         Farmer.findOne({'name':req.body.name,'password':req.body.pass},function(err,farmer){
             if(err){
                 console.log(err);
+                res.redirect("/reg");
                 return;
             }
             if(farmer !== null){
@@ -253,20 +262,22 @@ const loginUser = function(req,res){
                     expires:new Date(Date.now()+300000),
                     httpOnly:true
                 });
-                res.cookie("type","farmer",{
+                res.cookie("type","Farmer",{
                     expires:new Date(Date.now()+300000),
                     httpOnly:true
                 });
                 res.redirect("/dash");
             }else{
                 console.log("The farmer does not exists");
+                res.redirect("/reg");
                 return;
             }
         })
-    }else if(req.body.hasOwnProperty('insurance')){
+    }else if(req.body.type==='Insurance'){
         Insurance.findOne({'name':req.body.name,'password':req.body.pass},function(err,insurance){
             if(err){
                 console.log(err);
+                res.redirect("/reg");
                 return;
             }
             if(insurance !== null){
@@ -276,18 +287,19 @@ const loginUser = function(req,res){
                     expires:new Date(Date.now()+300000),
                     httpOnly:true
                 });
-                res.cookie("type","insurance",{
+                res.cookie("type","Insurance",{
                     expires:new Date(Date.now()+300000),
                     httpOnly:true
                 });
                 res.redirect("/dash");
             }else{
                 console.log("The insurance does not exists");
+                res.redirect("/reg");
                 return;
             }
         })
     }else{
-        res.redirect("/log");
+        res.redirect("/reg");
     }
 };
 
@@ -320,7 +332,7 @@ const getForm = function (req,res) {
 
 const submitForm = function (req,res) {
     if(req.cookies.jwt){
-        Insurance.findOne({name:req.body.insurance},function(err,ins){
+        Insurance.findOne({name:req.body.insurances},function(err,ins){
             if(err){
                 console.log(err);
             }else{
@@ -356,17 +368,18 @@ const submitForm = function (req,res) {
 const getInsuances = function(req,res){
     if(req.cookies.jwt){
         const id = verifyToken(req.cookies.jwt).sub;
-        if(req.cookies.type === "farmer"){
+        const name = verifyToken(req.cookies.jwt).name;
+        if(req.cookies.type === "Farmer"){
             InsScheme.find({farmId:id},function (err,ins) {
                 if(err){
                     console.log(err)
                 }else{
                     console.log(ins);
                     console.log(req.cookies.type);
-                    res.render("insurancelist",{insList:ins,uType:req.cookies.type})
+                    res.render("insurancelist",{insList:ins,uType:req.cookies.type,user:name})
                 }
             });
-        }else if(req.cookies.type === "insurance"){
+        }else if(req.cookies.type === "Insurance"){
             InsScheme.find({insId:id},function (err,ins) {
                 if(err){
                     console.log(err);
@@ -390,7 +403,12 @@ const insuranceDetail = function (req,res) {
             res.redirect("/insurance");
         }else{
             console.log(Ins);
-            res.render("insurancedetail",{ins:Ins});
+            if(req.cookies.jwt){
+                const name = verifyToken(req.cookies.jwt).name;
+                res.render("insurancedetail",{ins:Ins,uType:req.cookies.type,name:name});
+            }else{
+                res.redirect("/reg");
+            }
         }
     });
 }

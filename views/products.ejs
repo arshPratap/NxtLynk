@@ -1,24 +1,64 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title></title>
-        <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link rel="stylesheet" href="/styles/products.css">
+        <!-- font awesome -->
+        <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+        <style>
+            .home-section{
+                position: relative;
+                background: #E4E9F7;
+                min-height: 100vh;
+                top: 0;
+                left: 78px;
+                width: calc(100% - 78px);
+                transition: all 0.5s ease;
+                z-index: 2;
+            }
+        </style>
     </head>
     <body>
-        <h1>List of Products</h1>
-        <ul>
-          <%  for(let i = 0;i<pdtList.length;i++){  %>
-                <li><a href="/pdtdetails/<%=pdtList[i]._id %>"><%= pdtList[i].name %></a></li>
-          <% } %>
-        </ul>
-        <a href="/addpdt">Add</a>
+        <%- include('dashboard',{type:type,user:user}); %>
+        <section class="home-section">
+        <div class = "products">
+            <div class = "container">
+                <h1 class = "lg-title">Special Shoes With Offers</h1>
+                <p class = "text-light">Here users can buy their required agricultural products.Farmers and producers can also add their new products to this list for new consumers to buy.</p>
+                
+                <% if(type==="Farmer"){ %>
+                    <p class = "text-light">Feel free to add new products as farmers</p>
+                    <button class = "addProduct" onclick="window.location.href='/addpdt'">Add</button>
+                <% } %>
+                
+                <div class = "product-items">
+                    <!-- single product -->
+                    <% pdtList.forEach(pdt=>{ %>
+
+                        <div class = "product">
+                            <div class = "product-content">
+                                <div class = "product-img">
+                                    <img src = "images/index-7.png" alt = "product image">
+                                </div>
+                                <div class = "product-btns">
+                                    <button onclick = "window.location.href = '/pay/<%=pdt.price%>/<%=user%>'" type = "button" class = "btn-buy"> buy now
+                                        <span><i class = "fas fa-shopping-cart"></i></span>
+                                    </button>
+                                </div>
+                            </div>
+    
+                            <div class = "product-info">
+                                <div class = "product-info-top">
+                                </div>
+                                <a href = "/pdtdetails/<%=pdt._id%>" class = "product-name"><%=pdt.name%></a>
+                                <p class = "product-price">Rs. <%=pdt.price%></p>
+                            </div>
+                        </div>
+                    <% }) %>
+        </div>
+    </section>
     </body>
 </html>

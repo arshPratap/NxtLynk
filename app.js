@@ -3,12 +3,13 @@ const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const {verifyToken} = require('./public/jwtauth');
+const {verifyToken, getToken} = require('./public/jwtauth');
 const DBClient = require('./public/dbclient');
 const https = require("https");
 const qs = require("querystring");
 const checksum_lib = require("./public/Paytm/checksum");
 const config = require("./public/Paytm/config");
+const {getWeather,getAirQuality,getSoilData,getFireData} = require('./public/apis');
 //configure the app
 const app = express();
 app.use(bodyParser.urlencoded({extended:true}));
@@ -17,8 +18,25 @@ app.use(express.static("public"));
 app.use(cookieParser());
 const dbclient = new DBClient();
 //app functions
+
+const timeOfDay= function () {
+    let x = new Date();
+    if(x.getHours()>=5 && x.getHours()<8){
+        return 0;
+    }else if(x.getHours()>=8 && x.getHours()<18){
+        return 1;
+    } else if(x.getHours()>=18 && x.getHours()<=19){
+        return 2;
+    } else{
+        return 3;
+    }
+    
+}
+
+
 app.get("/",function(req,res){
-    res.render("home");
+    console.log(timeOfDay());
+    res.render("home",{time:timeOfDay()});
 })
 
 app.get("/weather/:lat/:long",function(req,res){
@@ -71,18 +89,20 @@ app.post("/reg",function(req,res){
     console.log(req.body);
     dbclient.register(req,res);
 })
-app.get("/log",function(req,res){
-    res.render("login");
-})
 app.post("/log",function(req,res){
     console.log(req.body);
     dbclient.login(req,res);
 })
+
 app.get("/dash",function(req,res){
     if(req.cookies.jwt){
         let user = verifyToken(req.cookies.jwt);
         if(user){
-            res.render('dashboard',{user:user.name});
+            if(req.cookies.type){
+                res.render('api',{user:user.name,type:req.cookies.type});
+            }else{
+                res.redirect('/reg');
+            }
         }else{
             res.redirect('/reg');
         }
@@ -90,11 +110,64 @@ app.get("/dash",function(req,res){
         res.redirect('/reg');
     }
 })
+
+app.post("/weather",function (req,res) {
+    console.log(req.body);
+    getWeather(req,res);
+    //getAirQuality(req,res);
+})
+
+app.post("/soil",function (req,res) {
+    console.log(req.body);
+
+    getSoilData(req,res);
+})
+
+app.post("/air",function (req,res) {
+    console.log(req.body);
+    getAirQuality(req,res);    
+})
+
+app.post("/fire",function (req,res) {
+    console.log(req.body);
+    getFireData(req,res);
+})
+
 app.get("/pdts",function (req,res) {
     dbclient.getAllProducts(req,res);
 })
 app.get("/pdtdetails/:pdtId",function(req,res){
     dbclient.getProduct(req,res);
+})
+
+app.get("/blogs",function (req,res) {
+    if(req.cookies.jwt){
+        if(req.cookies.type){
+            const user = verifyToken(req.cookies.jwt).name
+            res.render("blogs",{weavyToken:req.cookies.jwt,uType:req.cookies.type,user:user});   
+        }
+    }
+})
+
+app.get("/files",function (req,res) {
+    if(req.cookies.jwt){
+        const name = verifyToken(req.cookies.jwt).name;
+        if(req.cookies.type){
+            res.render("files",{weavyToken:req.cookies.jwt,user:name,uType:req.cookies.type});
+        }
+    } else {
+        res.redirect("/reg");
+    }
+})
+
+app.get("/msgs",function(req,res){
+    if(req.cookies.jwt){
+        const name = verifyToken(req.cookies.jwt).name;
+        const type = req.cookies.type;
+        res.render("messenger",{weavyToken:req.cookies.jwt,type:type,user:name});
+    } else {
+        res.redirect("/reg");
+    }
 })
 
 app.get("/addpdt",function(req,res){
@@ -112,13 +185,15 @@ app.get("/addinsurance",function(req,res){
     dbclient.addInsurance(req,res);
 })
 app.post("/addinsurance",function(req,res){
+    //console.log(req.body);
     dbclient.submitInsurance(req,res);
 })
 app.get("/insurancedetails/:insId",function(req,res){
     dbclient.getInsuranceDetail(req,res);
 })
-app.get("/test",function(req,res) {
-    res.render("test");
+
+app.get("/pay/:price/:custId",function(req,res) {
+    dbclient.goToPayment(req,res);
 })
 app.post("/paytm",function (req,res) {
     console.log(req.body);
@@ -215,7 +290,7 @@ app.post("/callback", (req, res) => {
   
              var _result = JSON.parse(response);
                if(_result.STATUS == 'TXN_SUCCESS') {
-                   res.send('payment sucess')
+                   res.redirect('/pdts');
                }else {
                    res.send('payment failed')
                }

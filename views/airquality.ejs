@@ -26,18 +26,14 @@
         <%- include('dashboard',{type:uType,user:user}); %>
         <section class="home-section">
             <div class="jumbotron">
-                <h1>Insurance Details</h1>
+                <h1>Air Quality in <%=city%></h1>
                 <hr class="my-4">
-                <h3><%=ins.insName%></h3>
-                <p><%=ins.farmName%></p>
-                <% if(ins.status === 0){ %>
-                    <h3>Pending</h3>
-                <% } else if(ins.status === 1){ %>
-                    <h3>Profit</h3>
-                <% }else{ %>
-                    <h3>Loss</h3>
-                <% } %>
-                <a href="/insurance" type="button" class="btn btn-primary">Back</a>
+                <h3>Carbon Monoxide : <%=air.CO%> (ppM) </h3>
+                <h3>Nitrogen Dioxide : <%=air.NO2%> (ppB) </h3>
+                <h3>Sulphur Dioxide : <%=air.SO2%> (ppB) </h3>
+                <h3>Ozone : <%=air.OZONE%> (ppB) </h3>
+                <h3>Particulate Matter ( less than 10um ) : <%=air.PM10%> </h3>
+                <a href="/dash" type="button" class="btn btn-primary">Back</a>
             </div>
         </section>
     </body>

@@ -1,31 +1,101 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <body>
-        <h1>Insurance Form</h1>
-        <form action="/addinsurance" method="POST">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" value="<%=farmerName%>" readonly="true"><br>
-        <label for="phone">Phone</label>
-        <input type="text" name="phone" id="phone" value="<%=farmerPhone%>" readonly="true"><br>
-        <label for="insurance">Choose your insurance company</label>
-        <input list="insurances" name="insurance" id="insurance"><br>
-        <datalist id="insurances">
-            <% insList.forEach(ins=>{ %>
-                <option value="<%=ins.name%>">
-            <% }) %>
-        </datalist>
-        <button type="submit">Submit</button>
-        </form>
-    </body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="/styles/addinsurancestyle.css" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form">
+        <div class="contact-info">
+          <h3 class="title">Let's get in touch</h3>
+          <p class="text">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
+            dolorum adipisci recusandae praesentium dicta!
+          </p>
+
+          <div class="info">
+            <div class="information">
+              <img src="/images/location.png" class="icon" alt="" />
+              <p>92 Cherry Drive Uniondale, NY 11553</p>
+            </div>
+            <div class="information">
+              <img src="/images/email.png" class="icon" alt="" />
+              <p>lorem@ipsum.com</p>
+            </div>
+            <div class="information">
+              <img src="/images/phone.png" class="icon" alt="" />
+              <p>123-456-789</p>
+            </div>
+          </div>
+
+          <div class="social-media">
+            <div class="social-icons">
+              <a href="#">
+                <i class="fas fa-home"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-form">
+          <span class="circle one"></span>
+          <span class="circle two"></span>
+
+          <form action="/addinsurance" autocomplete="off" method="POST">
+            <h3 class="title">Add Product Details</h3>
+            <div class="input-container">
+              <input type="text" name="name" class="input" id="name" value="<%=farmerName%>" readonly/>
+              <label for="">Name</label>
+              <span>Name</span>
+            </div>
+            <div class="input-container">
+              <input type="text" name="phone" id="phone" class="input" value="<%=farmerPhone%>" readonly/>
+              <label for="">Phone</label>
+              <span>Phone</span>
+            </div>
+            <div class="input-container">
+              <input type="text" name="price" id="price" class="input" />
+              <label for="">Price</label>
+              <span>Price</span>
+            </div>
+            <div class="input-container textarea">
+                <select id="insurances" name="insurances" class="input">
+                    <% insList.forEach(ins=>{ %>
+                        <option value="<%=ins.name%>"><%=ins.name%></option>
+                    <% }) %>
+                </select>
+              <label for="">Details</label>
+              <span>Details</span>
+            </div>
+            <input type="submit" value="Submit" class="btn" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    const inputs = document.querySelectorAll(".input");
+    function focusFunc() {
+        let parent = this.parentNode;
+        parent.classList.add("focus");
+    }
+    function blurFunc() {
+        let parent = this.parentNode;
+        if (this.value == "") {
+            parent.classList.remove("focus");
+        }
+    }
+    inputs.forEach((input) => {
+        input.addEventListener("focus", focusFunc);
+        input.addEventListener("blur", blurFunc);
+    });
+    </script>
+  </body>
 </html>

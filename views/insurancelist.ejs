@@ -10,20 +10,59 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/styles/insurance.css">
+        <style>
+            .home-section{
+                position: relative;
+                background: #E4E9F7;
+                min-height: 100vh;
+                top: 0;
+                left: 78px;
+                width: calc(100% - 78px);
+                transition: all 0.5s ease;
+                z-index: 2;
+            }
+        </style>
     </head>
     <body>
-        <h1>Your current insurance scheme</h1>
-        <a href="/addinsurance">Get one</a>
-        <a href="/insurancedetails">Check Insurance</a>
-        <ul>
+        <%- include('dashboard',{type:uType,user:user}); %>
+        <section class="home-section">
+        <div class="ins-list">
+        <div class="container wrapper">
+            <div class="row justify-content-center ins-title">
+                <h1 class="lg-title">Your current insurance scheme</h1>
+            </div>
+            <div class="info-sec">
+                <p class = "text-p">Here farmers and Insurance companies can see their current active insurance schemes.Farmers can also fill details to get a new index based insurance scheme</p>
+            </div>
+            
+            <% if(uType === "Farmer") { %>
+                <div class="addbtn-sec">
+                    <p class = "text-p">Get a new scheme</p>
+                    <button type="button" onclick="window.location.href = '/addinsurance'" class="btn btn-primary add-btn">Get one</button>
+                </div>
+            <% } %>
+
             <% insList.forEach(ins=>{ %>
-                <% if(uType === "farmer"){ %>
-                    <li><a href="/insurancedetails/<%=ins._id%>"><%=ins.insName%></a></li>
-                <% } else if (uType === "insurance") { %>
-                    <li><a href="/insurancedetails/<%=ins._id%>"><%=ins.farmName%></a></li>
-                <% } %>
+                <div class = "card text-center bg-warning ins-div">
+                    <div class="card-header">Insurance</div>
+                    <div class="card-body">
+                        <% if(uType === "Farmer"){ %>
+                            <h5 class="card-title"> <%=ins.insName%> </h5>
+                        <% } else if (uType === "Insurance") { %>
+                            <h5 class="card-title"> <%=ins.farmName%> </h5>
+                        <% } %>
+                        <p class="card-text">Index based insurance scheme</p>
+                        <a href="/insurancedetails/<%=ins._id%>" class="btn btn-info">Details</a>
+                    </div>
+                </div>
             <% }) %>
-        </ul>
+        </div>
+    </div>
+        </section>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     </body>
 </html>

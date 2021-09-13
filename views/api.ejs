@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="/styles/apistyles.css">
+        <style>
+            .home-section{
+                position: relative;
+                background: #E4E9F7;
+                min-height: 100vh;
+                top: 0;
+                left: 78px;
+                width: calc(100% - 78px);
+                transition: all 0.5s ease;
+                z-index: 2;
+            }
+        </style>
+    </head>
+    <body>
+        <%- include('dashboard',{type:type,user:user}); %>
+        <section class="home-section">
+            <div class="api-list">
+                <div class="container wrapper">
+                    <div class="row justify-content-center api-title">
+                        <h1 class="lg-title">Use our current APIs</h1>
+                    </div>
+                    <div class="api-sec">
+                        <p class = "text-p">Here the users can use the available APIs to get insights for their respective agricultural ventures. Users can find aid in getting information about the current weather,soil data and nearby fores fires. </p>
+                    </div>
+                    <div class = "card text-center bg-warning api-div">
+                        <div class="card-header">API</div>
+                        <div class="card-body api-body">
+                            <h5 class="card-title"> Weather </h5>
+                            <p class="card-text">Use this api to find the weather details about the current city</p>
+                            <div class="input-group mb-3 searchbar">
+                                <form action="/weather" method="POST">
+                                    <div class="form-group input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">City</span>
+                                        <input type="text" class="form-control" id="city" name="city" placeholder="For eg. Delhi">
+                                    </div>
+                                    <input type="submit" value="Check" class="btn btn-primary" id="regBtn">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "card text-center bg-warning api-div">
+                        <div class="card-header">API</div>
+                        <div class="card-body api-body">
+                            <h5 class="card-title"> Air Quality </h5>
+                            <p class="card-text">Use this api to get information regarding the air quality of the concerned location</p>
+                            <div class="input-group mb-3 searchbar">
+                                <form action="/air" method="POST">
+                                    <div class="form-group input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">City</span>
+                                        <input type="text" class="form-control" id="city" name="city" placeholder="For eg. Delhi">
+                                    </div>
+                                    <input type="submit" value="Check" class="btn btn-primary" id="regBtn">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "card text-center bg-warning api-div">
+                        <div class="card-header">API</div>
+                        <div class="card-body api-body">
+                            <h5 class="card-title"> Soil Quality </h5>
+                            <p class="card-text">Use this api to get information regarding the soil quality of the concerened area</p>
+                            <div class="input-group mb-3 searchbar">
+                                <form action="/soil" method="POST">
+                                    <div class="form-group input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Latitude</span>
+                                        <input type="text" class="form-control" id="lat" name="lat" placeholder="For eg. 12">
+                                    </div>
+                                    <div class="form-group input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Longitude</span>
+                                        <input type="text" class="form-control" id="lng" name="lng" placeholder="For eg. 77">
+                                    </div>
+                                    <input type="submit" value="Check" class="btn btn-primary" id="regBtn">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "card text-center bg-warning api-div">
+                        <div class="card-header">API</div>
+                        <div class="card-body api-body">
+                            <h5 class="card-title"> Check for Forest Fires </h5>
+                            <p class="card-text">Use this api to get information regarding occurences of forest fires in the nearby location</p>
+                            <div class="input-group mb-3 searchbar">
+                                <form action="/fire" method="POST">
+                                    <div class="form-group input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Latitude</span>
+                                        <input type="text" class="form-control" id="lat" name="lat" placeholder="For eg. 12">
+                                    </div>
+                                    <div class="form-group input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Longitude</span>
+                                        <input type="text" class="form-control" id="lng" name="lng" placeholder="For eg. 77">
+                                    </div>
+                                    <input type="submit" value="Check" class="btn btn-primary" id="regBtn">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+        </section>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    </body>
+</html>
