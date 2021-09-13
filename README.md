@@ -32,7 +32,8 @@ The business idea behind this project is to build an E-platform which will provi
 # NXTLYNK
 
 
-#### [Demo Link!](https://www.youtube.com/watch?v=RyVen94LiUk&t=14s)
+#### [Demo Link!]()
+To be added
 
 ## NxtLynk Tour
 
@@ -80,8 +81,23 @@ The business idea behind this project is to build an E-platform which will provi
 * HTML/CSS
 * Nodejs
 * Python
-* Tensorflow
-* Keras
+* Weavy
+* Mongo
+* Ethereum
+* Web3
+* Solidity
+* EJS
+
+## Weavy
+Special thanks to the Weavy Community for being interactive and helpful during the project building phase.
+Weavy : https://www.weavy.com/
+Weavy-SDK : https://docs.weavy.com/server
+Weavy-Client : https://docs.weavy.com/client
+
+### Weavy Apps Used
+* [Posts](https://docs.weavy.com/apps/posts)
+* [Messenger](https://docs.weavy.com/apps/messenger)
+* [Files](https://docs.weavy.com/apps/files)
 
 ## Future Patches
 
