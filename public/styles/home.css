@@ -70,11 +70,17 @@ header
 header .logo
 {
     color: #fff;
-    font-weight: 700;
+    font-weight: 550;
     text-decoration: none;
     font-size: 2em;
-    text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+    color: #fff;
+}
+header .logoimg
+{
+    width: 32px;
+    height: 32px;
+    margin-right: 5px;
 }
 header ul
 {
@@ -187,8 +193,121 @@ section img#animals
     margin-bottom: 10px;
     color: #fff;
 }
+.sec h3 
+{
+    font-size: 2.3em;
+    color: #fff;
+    margin-bottom: 6.5px;
+}
 .sec p
 {
     font-size: 1em;
     color: #fff;
+}
+.sec ul
+{
+    padding: 10px;
+    color: #fff;
+}
+
+.nav-ul{
+    list-style: none;
+}
+
+.sec li a{
+    text-decoration: none;
+    color: deepskyblue;
+}
+
+.sec li a:hover{
+    color: yellow;
+}
+
+.sec img 
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border:5px solid #fff;
+    border-radius: 10px;
+}
+
+.contact{
+    padding: 20px;
+    background-color: lightseagreen;
+    text-align: center;
+}
+
+.contact h2 {
+    color: darkslategray;
+    font-size: 2.3em;
+    margin-bottom: 10px;
+}
+
+.contact p {
+    font-size: 1em;
+    color: #fff;
+}
+
+.container{
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.dev {
+    background-color:indigo;
+    border:solid black;
+    margin: 10px;
+    width: 400px;
+    border-radius: 5px;
+}
+
+.dev-hr{
+    border: 0;
+    height: 2px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(12, 240, 240, 0.75), rgba(0, 0, 0, 0))
+}
+
+.dev-h3{
+    color: cyan;
+    padding: 10px;
+}
+
+.dev-p{
+    padding: 10px;
+}
+
+.social{
+    display: flex;
+    justify-content: center;
+}
+
+.icon{
+    height:20px;
+    width: 20px;
+    margin: 0.45rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: cyan;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.icon:hover{
+    color: yellow;
+}
+
+.footer-p{
+    margin: 10px;
+}
+
+.footer-svg{
+    height: 50px;
+    width: 250px;
+    margin: 0 auto;
 }
