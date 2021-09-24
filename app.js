@@ -35,7 +35,6 @@ const timeOfDay= function () {
 
 
 app.get("/",function(req,res){
-    console.log(timeOfDay());
     res.render("home",{time:timeOfDay()});
 })
 
